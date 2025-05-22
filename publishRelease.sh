@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
 TIME="$(date +"%Y-%m-%d_%H:%M:%S")"
-gh release create $(cat /proc/sys/kernel/random/uuid) --title "${TIME}" --notes "Build time: ${TIME}
+TIME_ID="$(date +"%Y-%m-%d-%H-%M-%S")"
+gh release create ${TIME_ID} --title "${TIME}" --notes "Build time: ${TIME}
 Branch: 
 $(git branch)" ./out/arch/arm64/boot/*Image*
