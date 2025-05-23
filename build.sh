@@ -1,4 +1,7 @@
 #!/bin/bash
+# Copyright (c) 2025 Aryan@CuriousNom. All Rights Reserved.
+#
+# Modified by Arkria.
 
 # Ensure the script exits on error
 set -e
@@ -52,39 +55,18 @@ echo "Cleaning..."
 rm -rf out/
 rm -rf error.log
 
-echo "Cloning AnyKernel3 for packing kernel..."
-if [ -d "anykernel/.git" ]; then
-    echo "AnyKernel3 already cloned. Skipping."
+# ------------- Building for AOSP ---------------
+echo "Clearing [out/] and building for AOSP....."
+
+make $MAKE_ARGS clover_lxc_defconfig
+
+make $MAKE_ARGS -j$(nproc --all) 2> >(tee -a error.log >&2)
+
+if [ -f "out/arch/arm64/boot/Image" ]; then
+    echo "The file [out/arch/arm64/boot/Image] exists. AOSP Build successfully."
 else
-    rm -rf anykernel  # ensure clean state
-    git clone https://github.com/CuriousNom/AnyKernel3 -b pipa --single-branch --depth=1 anykernel
+    echo "The file [out/arch/arm64/boot/Image] does not exist. Seems AOSP build failed."
+    exit 1
 fi
 
-    # ------------- Building for AOSP ---------------
-    echo "Clearing [out/] and building for AOSP....."
-
-    make $MAKE_ARGS clover_lxc_defconfig
-
-    make $MAKE_ARGS -j$(nproc --all) 2> >(tee -a error.log >&2)
-
-    if [ -f "out/arch/arm64/boot/Image" ]; then
-        echo "The file [out/arch/arm64/boot/Image] exists. AOSP Build successfully."
-    else
-        echo "The file [out/arch/arm64/boot/Image] does not exist. Seems AOSP build failed."
-        exit 1
-    fi
-
-    rm -rf anykernel/kernels/
-    mkdir -p anykernel/kernels/
-    cp out/arch/arm64/boot/Image anykernel/kernels/
-    cp out/arch/arm64/boot/dtb anykernel/kernels/
-
-    cd anykernel
-    ZIP_FILENAME=Kernel_BloodReaper_AOSP_pipa_$(date +'%Y%m%d_%H%M%S')_anykernel3_${GIT_COMMIT_ID}.zip
-    zip -r9 $ZIP_FILENAME ./* -x .git .gitignore out/ ./*.zip
-    mv $ZIP_FILENAME ../
-    cd ..
-
-    echo "Build for AOSP finished."
-
-echo "Done. The flashable zip is: [./$ZIP_FILENAME]"
+echo "Build for AOSP finished."
