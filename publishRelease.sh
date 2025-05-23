@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+# Copyright (c) 2025 Arkria. All Rights Reserved.
 
 TIME="$(date +"%Y-%m-%d_%H:%M:%S")"
 TIME_ID="$(date +"%Y-%m-%d-%H-%M-%S")"

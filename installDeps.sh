@@ -1,4 +1,5 @@
 #!/usr/bin/bash 
+# Copyright (c) 2025 Arkria. All Rights Reserved.
 
 sudo apt update -y
 sudo apt upgrade -y
