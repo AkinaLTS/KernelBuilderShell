@@ -58,7 +58,7 @@ rm -rf error.log
 # ------------- Building for AOSP ---------------
 echo "Clearing [out/] and building for AOSP....."
 
-make $MAKE_ARGS $1
+make $MAKE_ARGS $*
 
 make $MAKE_ARGS -j$(nproc --all) 2> >(tee -a error.log >&2)
 
