@@ -49,6 +49,7 @@ gh release create "${RELEASE_TAG}" \
     Time: ${RELEASE_TIME}
     Branch: $(git branch --show-current)
     Committer: $(git log --pretty=format:"%cn" -1)
+    CommitID: $(git log --pretty=format:"%h" -1)
     Commit: $(git log --pretty=format:"%s" -1)
     "
 
