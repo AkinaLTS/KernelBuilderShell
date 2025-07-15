@@ -39,7 +39,7 @@ echo "Proceeding with GitHub release for tag '${RELEASE_TAG}'..."
 
 GH_UPLOAD_ARGS=()
 for file in "${FILES_TO_UPLOAD[@]}"; do
-    GH_UPLOAD_ARGS+=("--asset" "${file}")
+    GH_UPLOAD_ARGS+=("${file}")
 done
 
 gh release create "${RELEASE_TAG}" \
