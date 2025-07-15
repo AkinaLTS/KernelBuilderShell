@@ -2,7 +2,7 @@
 
 BUILD_DIR="out/arch/arm64/boot"
 RELEASE_TIME="$(date "+%y-%m-%d_%H-%M-%S")"
-RELEASE_NAME="ARM64_Boot_Files_${RELEASE_TIME}"
+RELEASE_NAME="${RELEASE_TIME}"
 RELEASE_TAG="v${RELEASE_TIME}"
 
 echo "Preparing files for GitHub release from ${BUILD_DIR}..."
@@ -23,7 +23,7 @@ else
     echo "Warning: ${BUILD_DIR}/dtb not found. Skipping."
 fi
 
-if [ -f "${BUILD_DI3R}/dtbo.img" ]; then
+if [ -f "${BUILD_DIR}/dtbo.img" ]; then
     echo "Found ${BUILD_DIR}/dtbo.img."
     FILES_TO_UPLOAD+=("${BUILD_DIR}/dtbo.img")
 else
