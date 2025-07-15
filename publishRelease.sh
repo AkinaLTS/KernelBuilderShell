@@ -5,13 +5,13 @@ TIME="$(date +"%Y-%m-%d_%H:%M:%S")"
 TIME_ID="$(date +"%Y-%m-%d-%H-%M-%S")"
 FILES=""
 
-if [[ -f "./out/arch/arm64/boot/*Image*" ]]; then
+if [[ -f ./out/arch/arm64/boot/*Image* ]]; then
     echo "Find Image."
     FILES+="./out/arch/arm64/boot/*Image*"
 else
     echo "No Image file."
 fi
-if [[ -f "out/arch/arm64/boot/*dtb*" ]]; then
+if [[ -f out/arch/arm64/boot/*dtb* ]]; then
     echo "Find dtb dtbo."
     FILES+="./out/arch/arm64/boot/*dtb*"
 else
