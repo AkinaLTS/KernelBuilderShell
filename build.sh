@@ -6,6 +6,14 @@
 # Ensure the script exits on error
 set -e
 
+if [[ "${KSU}" = "y" ]]; then
+    if [[ -n "${KSU_BRANCH}" ]]; then
+        curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s ${KSU_BRANCH}
+    else
+        curl -LSs "https://raw.githubusercontent.com/SukiSU-Ultra/SukiSU-Ultra/main/kernel/setup.sh" | bash -s nongki
+    fi
+fi
+
 TOOLCHAIN_PATH=$HOME/tc/bin
 GIT_COMMIT_ID=$(git rev-parse --short=8 HEAD)
 
@@ -63,10 +71,10 @@ make $MAKE_ARGS $*
 make $MAKE_ARGS -j$(nproc --all) 2> >(tee -a error.log >&2)
 
 if [ -f "out/arch/arm64/boot/Image" ]; then
-    echo "The file [out/arch/arm64/boot/Image] exists. AOSP Build successfully."
+    echo "The file [out/arch/arm64/boot/Image] exists. Building successfully."
 else
-    echo "The file [out/arch/arm64/boot/Image] does not exist. Seems AOSP build failed."
+    echo "The file [out/arch/arm64/boot/Image] does not exist. Seems kernel build failed."
     exit 1
 fi
 
-echo "Build for AOSP finished."
+echo "Building kernel finished."
