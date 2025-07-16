@@ -31,10 +31,10 @@ else
     echo "Warning: ${BUILD_DIR}/dtbo.img not found. Skipping."
 fi
 
-if [ -f ".config" ]; then
+if [ -f "${BUILD_DIR}/.config" ]; then
     echo "Found .config."
-    cp .config build_config
-    FILES_TO_UPLOAD+=("build_config")
+    cp ${BUILD_DIR}/{.config,build_config}
+    FILES_TO_UPLOAD+=("${BUILD_DIR}/build_config")
 else
     echo "Warning: .config not found. Skipping."
 fi
