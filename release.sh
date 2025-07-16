@@ -2,7 +2,8 @@
 
 BUILD_DIR="out/arch/arm64/boot"
 RELEASE_TIME="$(date "+%y-%m-%d_%H-%M-%S")"
-RELEASE_NAME="${RELEASE_TIME}"
+PRETTY_TIME="$(date "+%y/%m/*d %H:%M:%S")"
+RELEASE_NAME="Build_${PRETTY_TIME}"
 RELEASE_TAG="v${RELEASE_TIME}"
 
 echo "Preparing files for GitHub release from ${BUILD_DIR}..."
@@ -28,6 +29,14 @@ if [ -f "${BUILD_DIR}/dtbo.img" ]; then
     FILES_TO_UPLOAD+=("${BUILD_DIR}/dtbo.img")
 else
     echo "Warning: ${BUILD_DIR}/dtbo.img not found. Skipping."
+fi
+
+if [ -f ".config" ]; then
+    echo "Found .config."
+    cp .config build_config
+    FILES_TO_UPLOAD+=("build_config")
+else
+    echo "Warning: .config not found. Skipping."
 fi
 
 if [ ${#FILES_TO_UPLOAD[@]} -eq 0 ]; then
