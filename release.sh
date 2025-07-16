@@ -55,12 +55,19 @@ gh release create "${RELEASE_TAG}" \
     "${GH_UPLOAD_ARGS[@]}" \
     --title "${RELEASE_NAME}" \
     --notes "
-    Time: ${PRETTY_TIME} \
-    Branch: $(git branch --show-current) \
-    Committer: $(git log --pretty=format:"%cn" -1) \
-    CommitID: $(git rev-parse --short HEAD) \
-    Commit: $(git log --pretty=format:"%s" -1) \
-    "
+Time: ${PRETTY_TIME}
+
+Branch: \`$(git branch --show-current)\`
+
+Committer: \`$(git log --pretty=format:"%cn" -1)\`
+
+Commit ID: $(git rev-parse --short HEAD)
+
+Commit: 
+\`\`\`
+$(git log --pretty=format:"%s" -1)\
+\`\`\`
+"
 
 if [ $? -ne 0 ]; then
     echo "Error: Failed to create GitHub release. Check the error message above."
