@@ -55,7 +55,7 @@ gh release create "${RELEASE_TAG}" \
     "${GH_UPLOAD_ARGS[@]}" \
     --title "${RELEASE_NAME}" \
     --notes "
-Time: ${PRETTY_TIME}
+Time: `${PRETTY_TIME}`
 
 Branch: \`$(git branch --show-current)\`
 
