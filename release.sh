@@ -2,7 +2,7 @@
 
 BUILD_DIR="out/arch/arm64/boot"
 RELEASE_TIME="$(date "+%y-%m-%d_%H-%M-%S")"
-PRETTY_TIME="$(date "+%y/%m/*d %H:%M:%S")"
+PRETTY_TIME="$(date "+%y/%m/%d %H:%M:%S")"
 RELEASE_NAME="Build_${PRETTY_TIME}"
 RELEASE_TAG="v${RELEASE_TIME}"
 
@@ -55,10 +55,10 @@ gh release create "${RELEASE_TAG}" \
     "${GH_UPLOAD_ARGS[@]}" \
     --title "${RELEASE_NAME}" \
     --notes "
-    Time: ${RELEASE_TIME}
+    Time: ${PRETTY_TIME}
     Branch: $(git branch --show-current)
     Committer: $(git log --pretty=format:"%cn" -1)
-    CommitID: $(git log --pretty=format:"%h" -1)
+    CommitID: $(git rev-parse --short HEAD)
     Commit: $(git log --pretty=format:"%s" -1)
     "
 
