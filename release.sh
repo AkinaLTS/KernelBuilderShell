@@ -65,7 +65,7 @@ Commit ID: $(git rev-parse --short HEAD)
 
 Commit: 
 \`\`\`
-$(git log --pretty=format:"%s" -1)\
+$(git log --pretty=format:"%s" -1)
 \`\`\`
 "
 
